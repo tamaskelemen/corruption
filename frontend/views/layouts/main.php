@@ -48,11 +48,13 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Regisztráció', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Belépés', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Cégeim', 'url' => ['/company/index']];
-        $menuItems[] = ['label' => 'Közbeszerzések', 'url' => ['/site/login']];
-       // $menuItems[] = ['label' => 'Hősöd (' . Hero::listValues('name', $user->hero) . ')', 'url' => ['/user/profile']];
-        if (empty($user->hero)) {
+       // $menuItems[] = ['label' => 'Cégeim', 'url' => ['/company/index']];
+        //$menuItems[] = ['label' => 'Közbeszerzések', 'url' => ['/site/login']];
+        //$menuItems[] = ['label' => 'Hősöm ', 'url' => ["/hero/view", 'id' => $user->hero_id]];
+        if (empty($user->hero_id)) {
             $menuItems[] = ['label' => 'Hősválasztó', 'url' => ['user/choose']];
+        } else {
+            $menuItems[] = ['label' => 'Hősöm ', 'url' => ["/hero/view", 'id' => $user->hero_id]];
         }
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
@@ -86,6 +88,17 @@ AppAsset::register($this);
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129990489-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-129990489-1');
+</script>
+
 
 <?php $this->endBody() ?>
 </body>

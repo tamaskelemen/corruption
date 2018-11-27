@@ -1,8 +1,10 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\heroes;
 
 use Yii;
+use frontend\models\Company;
+use frontend\models\User;
 
 /**
  * This is the model class for table "heroes".
@@ -13,11 +15,15 @@ use Yii;
  * @property int $user_id
  * @property double $orban_index
  *
- * @property Companies[] $companies
- * @property Users $user
+ * @property Company[] $companies
+ * @property User $user
  */
 class Hero extends \yii\db\ActiveRecord
 {
+    const MESZAROS_LORINC = 1;
+    const ANDY_VAJNA = 2;
+    const MATOLCSY = 3;
+
     /**
      * {@inheritdoc}
      */
@@ -58,7 +64,7 @@ class Hero extends \yii\db\ActiveRecord
      */
     public function getCompanies()
     {
-        return $this->hasMany(Companies::className(), ['hero_id' => 'id']);
+        return $this->hasMany(Company::className(), ['hero_id' => 'id']);
     }
 
     /**
@@ -67,6 +73,20 @@ class Hero extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getEntity()
+    {
+        switch ($this->type) {
+            case self::MESZAROS_LORINC:
+                return new MeszarosLorinc();
+            case self::ANDY_VAJNA:
+                return new AndyVajna();
+            case self::MATOLCSY:
+                return new MatolcsyGyorgy();
+            default:
+                return null;
+        }
     }
 
     /**

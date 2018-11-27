@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use frontend\models\Hero;
+use frontend\models\heroes\Hero;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
