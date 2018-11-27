@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use frontend\components\Hero;
+use frontend\models\Hero;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -13,15 +13,19 @@ use yii\web\IdentityInterface;
  * User model
  *
  * @property integer $id
- * @property string $username
+ * @property string $email
+ * @property integer $created_at
+ * @property string $last_login
  * @property string $password_hash
  * @property string $password_reset_token
- * @property string $email
  * @property string $auth_key
  * @property integer $status
- * @property integer $created_at
- * @property integer $hero
+ * @property integer $hero_id
+ * @property string $terms
+ * @property int $newsletter
  * @property string $password write-only password
+ *
+ * @property Hero $hero
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -34,7 +38,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'users';
     }
 
 
@@ -45,10 +49,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            [['created_at', 'last_login', 'terms'], 'safe'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-            ['hero', 'integer'],
-            ['hero', 'in', 'range' => [Hero::MESZAROS_LORINC, Hero::MATOLCSY, Hero::ANDY_VAJNA]],
+            [['hero_id', 'status', 'newsletter'], 'integer'],
+            //['hero', 'in', 'range' => [Hero::MESZAROS_LORINC, Hero::MATOLCSY, Hero::ANDY_VAJNA]],
+            [['email', 'password_hash', 'password_reset_token', 'auth_key'], 'string', 'max' => 255],
         ];
     }
 
@@ -69,14 +74,14 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * Finds user by email
      *
-     * @param string $username
+     * @param string $email
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByEmail($email)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -181,5 +186,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHero()
+    {
+        return $this->hasOne(Hero::className(), ['id' => 'hero_id']);
     }
 }

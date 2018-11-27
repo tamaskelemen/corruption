@@ -5,14 +5,18 @@ namespace frontend\models;
 use Yii;
 
 /**
- * This is the model class for table "company".
+ * This is the model class for table "companies".
  *
  * @property int $id
  * @property string $name
- * @property int $user_id
- * @property int $value
+ * @property int $hero_id
+ * @property string $description
+ * @property string $created_at
+ * @property int $level
+ * @property double $balance
+ * @property int $status
  *
- * @property User $user
+ * @property Hero $hero
  */
 class Company extends \yii\db\ActiveRecord
 {
@@ -30,10 +34,11 @@ class Company extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['user_id', 'value'], 'integer'],
-            [['name'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['hero_id', 'level', 'status'], 'integer'],
+            [['created_at'], 'safe'],
+            [['balance'], 'number'],
+            [['name', 'description'], 'string', 'max' => 255],
+            [['hero_id'], 'exist', 'skipOnError' => true, 'targetClass' => Hero::className(), 'targetAttribute' => ['hero_id' => 'id']],
         ];
     }
 
@@ -45,25 +50,29 @@ class Company extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'user_id' => 'User ID',
-            'value' => 'Value',
+            'hero_id' => 'Hero ID',
+            'description' => 'Description',
+            'created_at' => 'Created At',
+            'level' => 'Level',
+            'balance' => 'Balance',
+            'status' => 'Status',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getHero()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Hero::className(), ['id' => 'hero_id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return CompanyQuery the active query used by this AR class.
+     * @return \frontend\models\query\CompanyQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new CompanyQuery(get_called_class());
+        return new \frontend\models\query\CompanyQuery(get_called_class());
     }
 }

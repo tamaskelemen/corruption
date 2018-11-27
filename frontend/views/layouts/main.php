@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use frontend\components\Hero;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -28,6 +29,9 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    /** @var \frontend\models\User $user */
+    $user = Yii::$app->user->identity;
+
     NavBar::begin([
         'brandLabel' => 'Orbán egy geci',
         'brandUrl' => Yii::$app->homeUrl,
@@ -46,12 +50,14 @@ AppAsset::register($this);
     } else {
         $menuItems[] = ['label' => 'Cégeim', 'url' => ['/company/index']];
         $menuItems[] = ['label' => 'Közbeszerzések', 'url' => ['/site/login']];
-        $menuItems[] = ['label' => 'Profil', 'url' => ['/user/profile']];
-        $menuItems[] = ['label' => 'Hősválasztó', 'url' => ['user/choose']];
+       // $menuItems[] = ['label' => 'Hősöd (' . Hero::listValues('name', $user->hero) . ')', 'url' => ['/user/profile']];
+        if (empty($user->hero)) {
+            $menuItems[] = ['label' => 'Hősválasztó', 'url' => ['user/choose']];
+        }
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Kilépés (' . Yii::$app->user->identity->username . ')',
+                'Kilépés (' . $user->email . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()
