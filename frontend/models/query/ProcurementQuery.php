@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\query;
 
 /**
- * This is the ActiveQuery class for [[Company]].
+ * This is the ActiveQuery class for [[\frontend\models\Procurement]].
  *
- * @see Company
+ * @see \frontend\models\Procurement
  */
-class CompanyQuery extends \yii\db\ActiveQuery
+class ProcurementQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class CompanyQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Company[]|array
+     * @return \frontend\models\Procurement[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class CompanyQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Company|array|null
+     * @return \frontend\models\Procurement|array|null
      */
     public function one($db = null)
     {
