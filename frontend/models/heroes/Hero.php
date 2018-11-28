@@ -41,7 +41,7 @@ class Hero extends \yii\db\ActiveRecord
             [['type', 'user_id'], 'integer'],
             [['orban_index'], 'number'],
             [['alias'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            //[['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
