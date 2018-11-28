@@ -52,22 +52,33 @@ AppAsset::register($this);
         //$menuItems[] = ['label' => 'Közbeszerzések', 'url' => ['/site/login']];
         //$menuItems[] = ['label' => 'Hősöm ', 'url' => ["/hero/view", 'id' => $user->hero_id]];
         if (empty($user->hero_id)) {
-            $menuItems[] = ['label' => 'Hősválasztó', 'url' => ['user/choose']];
+            $menuItems[] = ['label' => 'Hősválasztó', 'url' => ['/user/choose']];
         } else {
+            $menuItems[] = ['label' => 'Cégek', 'url' => ['/company/index']];
             $menuItems[] = ['label' => 'Hősöm ', 'url' => ["/hero/view", 'id' => $user->hero_id]];
         }
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Kilépés (' . $user->email . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
+        $menuItems[] = [
+            'label' => '<div class="glyphicon glyphicon-cog"></div>',
+            'items' => [
+                ['label' => 'Felhasználói fiók', 'url' => '/user/profile'],
+                '<li class="divider"></li>',
+                 '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        'Kilépés (' . $user->email . ')',
+                        ['class' => 'btn']
+                    )
+                    . Html::endForm()
+                    . '</li>',
+            ],
+        ];
+
+
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
+        'encodeLabels' => false,
     ]);
     NavBar::end();
     ?>
