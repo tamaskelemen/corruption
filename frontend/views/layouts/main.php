@@ -57,7 +57,7 @@ AppAsset::register($this);
         } else {
             $menuItems[] = ['label' => 'Cégek', 'url' => ['/company/index']];
             $menuItems[] = ['label' => 'Hősöm ', 'url' => ["/hero/view", 'id' => $user->hero_id]];
-            $menuItems[] = ['label' => '<span class="glyphicon glyphicon-envelope"></span>', 'url' => '/reports'];
+            $menuItems[] = ['label' => '<span class="glyphicon glyphicon-envelope"></span>', 'url' => '/report'];
         }
         $menuItems[] = [
             'label' => '<div class="glyphicon glyphicon-cog"></div>',
