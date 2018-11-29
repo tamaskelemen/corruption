@@ -34,7 +34,7 @@ class Procurement extends \yii\db\ActiveRecord
             [['created_at', 'ends_at'], 'safe'],
             [['institution_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['institution_id'], 'exist', 'skipOnError' => true, 'targetClass' => Institutions::className(), 'targetAttribute' => ['institution_id' => 'id']],
+            [['institution_id'], 'exist', 'skipOnError' => true, 'targetClass' => Institution::className(), 'targetAttribute' => ['institution_id' => 'id']],
         ];
     }
 
