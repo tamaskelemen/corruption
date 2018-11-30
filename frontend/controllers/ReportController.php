@@ -5,14 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Report;
 use frontend\models\search\ReportSearch;
-use frontend\controllers\BaseController;
+use common\components\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ReportController implements the CRUD actions for Report model.
  */
-class ReportController extends BaseController
+class ReportController extends Controller
 {
     /**
      * {@inheritdoc}

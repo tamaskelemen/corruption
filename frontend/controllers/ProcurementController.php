@@ -5,14 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Procurement;
 use frontend\models\search\ProcurementSearch;
-use frontend\controllers\BaseController;
+use common\components\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * ProcurementController implements the CRUD actions for Procurement model.
  */
-class ProcurementController extends BaseController
+class ProcurementController extends Controller
 {
     /**
      * {@inheritdoc}

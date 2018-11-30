@@ -5,8 +5,9 @@ use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
+use common\components\web\Controller;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
     /**
      * {@inheritdoc}

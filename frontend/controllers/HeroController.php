@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use common\components\web\Controller;
 use frontend\models\heroes\Hero;
 use frontend\models\search\HeroSearch;
 use yii\db\Exception;
@@ -13,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * HeroController implements the CRUD actions for Hero model.
  */
-class HeroController extends BaseController
+class HeroController extends Controller
 {
     /**
      * {@inheritdoc}

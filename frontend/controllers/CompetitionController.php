@@ -5,14 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Competition;
 use frontend\models\search\CompetitionSearch;
-use frontend\controllers\BaseController;
+use common\components\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * CompetitionController implements the CRUD actions for Competition model.
  */
-class CompetitionController extends BaseController
+class CompetitionController extends Controller
 {
     /**
      * {@inheritdoc}
