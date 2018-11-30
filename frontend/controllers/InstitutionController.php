@@ -5,14 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Institution;
 use frontend\models\search\InstitutionSearch;
-use frontend\controllers\BaseController;
+use common\components\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * InstitutionController implements the CRUD actions for Institution model.
  */
-class InstitutionController extends BaseController
+class InstitutionController extends Controller
 {
     /**
      * {@inheritdoc}

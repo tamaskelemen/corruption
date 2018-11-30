@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Company;
 use frontend\models\search\CompanySearch;
-use frontend\controllers\BaseController;
+use common\components\web\Controller;
 use yii\db\Exception;
 use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * CompanyController implements the CRUD actions for Company model.
  */
-class CompanyController extends BaseController
+class CompanyController extends Controller
 {
     /**
      * {@inheritdoc}

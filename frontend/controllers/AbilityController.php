@@ -5,14 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Ability;
 use frontend\models\search\AbilitySearch;
-use frontend\controllers\BaseController;
+use common\components\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * AbilityController implements the CRUD actions for Ability model.
  */
-class AbilityController extends BaseController
+class AbilityController extends Controller
 {
     /**
      * {@inheritdoc}
