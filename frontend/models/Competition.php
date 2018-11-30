@@ -7,6 +7,7 @@ use Yii;
 /**
  * This is the model class for table "competitions".
  *
+ * @property int $id
  * @property int $proc_id
  * @property int $company_id
  * @property string $created_at
@@ -38,6 +39,7 @@ class Competition extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'proc_id' => 'Proc ID',
             'company_id' => 'Company ID',
             'created_at' => 'Created At',
