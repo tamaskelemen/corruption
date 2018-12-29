@@ -1,16 +1,6 @@
 require 'yaml'
 require 'fileutils'
 
-required_plugins = %w( vagrant-hostmanager vagrant-vbguest )
-required_plugins.each do |plugin|
-    exec "vagrant plugin install #{plugin}" unless Vagrant.has_plugin? plugin
-end
-
-domains = {
-  frontend: 'y2aa-frontend.test',
-  backend:  'y2aa-backend.test'
-}
-
 config = {
   local: './vagrant/config/vagrant-local.yml',
   example: './vagrant/config/vagrant-local.example.yml'
@@ -30,7 +20,7 @@ end
 # vagrant configurate
 Vagrant.configure(2) do |config|
   # select the box
-  config.vm.box = 'bento/ubuntu-16.04'
+  config.vm.box = 'debian/stretch64'
 
   # should we ask about box updates?
   config.vm.box_check_update = options['box_check_update']
@@ -53,8 +43,8 @@ Vagrant.configure(2) do |config|
   # network settings
   config.vm.network 'private_network', ip: options['ip']
 
-  # sync: folder 'yii2-app-advanced' (host machine) -> folder '/app' (guest machine)
-  config.vm.synced_folder './', '/app', owner: 'vagrant', group: 'vagrant'
+  # sync: folder 'ingatlannet3' (host machine) -> folder '/var/www/html/corruption' (guest machine)
+  config.vm.synced_folder '.', '/var/www/html/corruption', owner: 'vagrant', group: 'vagrant'
 
   # disable folder '/vagrant' (guest machine)
   config.vm.synced_folder '.', '/vagrant', disabled: true
@@ -65,13 +55,14 @@ Vagrant.configure(2) do |config|
   config.hostmanager.manage_host        = true
   config.hostmanager.ignore_private_ip  = false
   config.hostmanager.include_offline    = true
-  config.hostmanager.aliases            = domains.values
+  config.hostmanager.aliases            = options['domains'].values
 
   # provisioners
-  config.vm.provision 'shell', path: './vagrant/provision/once-as-root.sh', args: [options['timezone']]
+  config.vm.provision 'shell', path: './vagrant/provision/once-as-root.sh', args: [options['timezone'], options['db_user_name'], options['db_user_pass'], options['db_name']]
   config.vm.provision 'shell', path: './vagrant/provision/once-as-vagrant.sh', args: [options['github_token']], privileged: false
   config.vm.provision 'shell', path: './vagrant/provision/always-as-root.sh', run: 'always'
 
   # post-install message (vagrant console)
-  config.vm.post_up_message = "Frontend URL: http://#{domains[:frontend]}\nBackend URL: http://#{domains[:backend]}"
+  config.vm.post_up_message = "Frontend URL: http://#{options['domains']['frontend']}\nBackend URL: http://#{options['domains']['backend']}"
 end
+
