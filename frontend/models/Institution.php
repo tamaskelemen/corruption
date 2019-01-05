@@ -15,6 +15,10 @@ use Yii;
  */
 class Institution extends \yii\db\ActiveRecord
 {
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = -1;
+
     /**
      * {@inheritdoc}
      */
