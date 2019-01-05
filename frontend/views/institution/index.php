@@ -1,5 +1,6 @@
 <?php
 
+use frontend\models\Institution;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -25,9 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($model) { return Institution::listValues('status', $model->status); },
+                'filter' => Institution::listValues('status'),
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

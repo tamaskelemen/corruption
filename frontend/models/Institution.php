@@ -50,6 +50,24 @@ class Institution extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function listValues($type, $value = null)
+    {
+        $items = [
+            'status' => [
+                self::STATUS_ACTIVE => 'aktív',
+                self::STATUS_INACTIVE => 'bezárt',
+            ],
+        ];
+
+        if (empty($value)){
+            return $items[$type] ?? null;
+        } elseif (!empty($value)) {
+            return $items[$type][$value] ?? null;
+        }
+
+        return null;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
