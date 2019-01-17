@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\search\ProcurementSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Procurements';
+$this->title = 'Közbeszerzések';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="procurement-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Procurement', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Új közbeszerzés kíírása', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'name',
-            'created_at',
+            //'created_at',
             'ends_at',
-            'institution_id',
+            'institution.name',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

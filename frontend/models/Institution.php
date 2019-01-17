@@ -69,6 +69,21 @@ class Institution extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public static function listActives() : array
+    {
+        $institutes = self::find()->active()->all();
+
+        $result = [];
+        foreach ($institutes as $institute) {
+            $result[$institute->id] = $institute->name;
+        }
+
+        return $result;
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getProcurements()

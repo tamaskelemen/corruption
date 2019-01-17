@@ -17,6 +17,9 @@ use Yii;
  */
 class Procurement extends \yii\db\ActiveRecord
 {
+
+    public $abilities;
+
     /**
      * {@inheritdoc}
      */
@@ -31,7 +34,7 @@ class Procurement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'ends_at'], 'safe'],
+            [['created_at', 'ends_at','abilities'], 'safe'],
             [['institution_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['institution_id'], 'exist', 'skipOnError' => true, 'targetClass' => Institution::className(), 'targetAttribute' => ['institution_id' => 'id']],
@@ -58,6 +61,15 @@ class Procurement extends \yii\db\ActiveRecord
     public function getInstitution()
     {
         return $this->hasOne(Institution::className(), ['id' => 'institution_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAbilities()
+    {
+        return $this->hasMany(Ability::class, ['id' => 'ability_id'])
+            ->viaTable('proc_requirements', ['proc_id' => 'id']);
     }
 
     /**
