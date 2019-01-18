@@ -1,5 +1,7 @@
 <?php
 
+use frontend\models\Ability;
+use frontend\models\Institution;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,11 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Közbeszerzés címe') ?>
 
-    <?= $form->field($model, 'ends_at')->textInput() ?>
+    <?= $form->field($model, 'ends_at')->textInput()->label('Határidő') ?>
 
-    <?= $form->field($model, 'institution_id')->textInput() ?>
+    <?= $form->field($model, 'institution_id')->dropDownList(Institution::listActives())->label('Meghirdető intézmény') ?>
+
+    <?= $form->field($model, 'abilities')->checkboxList(Ability::listActives())->label('Pályázati feltételek') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

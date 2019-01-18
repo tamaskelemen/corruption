@@ -30,6 +30,12 @@ class Ability extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getProcurements()
+    {
+        return $this->hasMany(Procurement::class, ['id' => 'proc_id'])
+            ->viaTable('proc_requirements', ['ability_id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -39,6 +45,21 @@ class Ability extends \yii\db\ActiveRecord
             'id' => 'ID',
             'description' => 'Description',
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function listActives() : array
+    {
+        $abilites = self::find()->all();
+
+        $result = [];
+        foreach ($abilites as $ability) {
+            $result[$ability->id] = $ability->description;
+        }
+
+        return $result;
     }
 
     /**

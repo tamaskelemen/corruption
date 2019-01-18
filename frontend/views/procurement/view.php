@@ -34,7 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'ends_at',
             'institution_id',
+            'abilities'
         ],
     ]) ?>
+
+    <?php foreach($model->getAbilities()->all() as  $ability) {
+
+        var_dump($ability);
+    } ?>
 
 </div>

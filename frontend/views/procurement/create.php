@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Procurement */
 
-$this->title = 'Create Procurement';
-$this->params['breadcrumbs'][] = ['label' => 'Procurements', 'url' => ['index']];
+$this->title = 'Új közbeszerzés kíírása';
+$this->params['breadcrumbs'][] = ['label' => 'Közbeszerzések', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="procurement-create">

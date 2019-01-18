@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Ability;
 use Yii;
 use frontend\models\Procurement;
 use frontend\models\search\ProcurementSearch;
@@ -64,14 +65,23 @@ class ProcurementController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Procurement();
+        $procurement = new Procurement();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($procurement->load(Yii::$app->request->post()) ) {
+
+            $abilities = Ability::find()->where(['id' => $procurement->abilities])->all();
+
+            if ($procurement->save()) {
+                foreach ($abilities as $ability) {
+                    $procurement->link('abilities', $ability);
+                }
+
+                return $this->redirect(['view', 'id' => $procurement->id]);
+            }
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model' => $procurement,
         ]);
     }
 

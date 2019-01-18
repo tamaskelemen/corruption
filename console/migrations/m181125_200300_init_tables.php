@@ -95,6 +95,9 @@ class m181125_200300_init_tables extends Migration
 
         $this->addForeignKey('fk_procurements_institution_id_institutions_id', 'procurements', 'institution_id', 'institutions', 'id', 'SET NULL', 'CASCADE');
 
+        $this->addForeignKey('fk_proc_requirements_proc_id_procurements_id', 'proc_requirements', 'proc_id', 'procurements', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk_ability_id_abilities_id', 'proc_requirements', 'ability_id', 'abilities', 'id', 'CASCADE', 'CASCADE');
+
     }
 
     /**
