@@ -6,6 +6,8 @@
 used principles:
 https://adamcod.es/2013/11/22/tell-dont-ask.html
 
+Started as a home project, ended up as an own collection of framework extensions. Differences to the default advanced template: ajax infrastructure, form-grid config helper methods, sessions stored in db (for easier scaling) and some other minor enhancements.
+
 # Installation
 
 ## Installing using Vagrant
